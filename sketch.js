@@ -20,13 +20,14 @@ let time = 0;
 
 // Load the image.
 function preload() {
-  
   title = loadImage("flipbook_title02b.png");
   gif = loadImage("階段を降りる人アニメ正方形.gif");
   gif2 = loadImage("階段を降りる人アニメ正方形ぶれ2.gif");
-  snd[0] = loadSound('flipbook01_short.wav');
-  snd[1] = loadSound('flipbook02_short.wav');
-  snd[2] = loadSound('flipbook03_short.wav');
+
+  snd[0] = new Tone.Player("flipbook01_short.wav").toDestination();
+  snd[1] = new Tone.Player("flipbook02_short.wav").toDestination();
+  snd[2] = new Tone.Player("flipbook03_short.wav").toDestination();
+  
 }
 
 function setup() 
@@ -106,8 +107,7 @@ function draw()
   if(index != index_old)
   {
     time = 0;
-    snd[index%3].stop();
-    snd[index%3].play();
+    snd[index%3].start();
     
     if(title_onoff == 0)
     {
@@ -183,9 +183,8 @@ function draw()
 // On mouse click
 function mousePressed() 
 {
-    snd[0].play();
-          uX = mouseX;
-        uY = mouseY;
+  uX = mouseX;
+  uY = mouseY;
   touch_onoff = true;
   if(title_onoff == 0)
   {
